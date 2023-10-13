@@ -5,7 +5,8 @@ class Player {
 
     this.velocity = { x: 0, y: 0 };
 
-    this.size = 50;
+    this.isAlive = true;
+    this.size = { width: 40, height: 40 };
 
     this.ship = new Image();
     this.ship.src = "./images/ship3.png";
@@ -18,8 +19,8 @@ class Player {
       this.ship,
       this.position.x,
       this.position.y,
-      this.size,
-      this.size
+      this.size.width,
+      this.size.height
     );
   }
 
@@ -30,6 +31,8 @@ class Player {
 
   update() {
     this.draw();
-    this.move();
+    if (this.isAlive) {
+      this.move();
+    }
   }
 }

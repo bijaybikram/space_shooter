@@ -5,7 +5,15 @@ const c = canvas.getContext("2d");
 // canvas.height = window.innerHeight;
 
 const player1 = new Player();
+
 let allBullets = [];
+let enemies = [];
+
+setInterval(() => {
+  const enemy1 = new Enemy();
+  enemies.push(enemy1);
+}, 3000);
+console.log(enemies);
 
 function shootSound() {
   const shoot = new Audio();
@@ -23,9 +31,15 @@ function backgroundSound() {
 function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height);
   player1.update();
+
+  for (let i = 0; i < enemies.length; i++) {
+    enemies[i].update();
+    enemies[i].collision(player1);
+    enemies[i].collisionWithBullets(allBullets);
+  }
+
   for (let i = 0; i < allBullets.length; i++) {
     allBullets[i].update();
-    // console.log("bullets");
   }
   requestAnimationFrame(animate);
 }
@@ -40,10 +54,14 @@ document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowRight") player1.velocity.x = 2;
   if (event.code === "Space") {
     allBullets.push(
-      new Bullet(player1.position.x + player1.size / 5, player1.position.y)
+      new Bullet(
+        player1.position.x + player1.size.width / 5,
+        player1.position.y
+      )
     );
     shootSound();
     backgroundSound();
+    // console.log(player1.position.x);
   }
 });
 

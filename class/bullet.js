@@ -10,7 +10,7 @@ class Bullet {
       x: 0,
       y: -5,
     };
-    this.size = 30;
+    this.size = { width: 30, height: 30 };
 
     this.bullet = new Image();
     this.bullet.src = "./images/bullet.png";
@@ -22,8 +22,8 @@ class Bullet {
       this.bullet,
       this.position.x,
       this.position.y,
-      this.size,
-      this.size
+      this.size.width,
+      this.size.height
     );
   }
   move() {
